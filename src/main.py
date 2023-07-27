@@ -1,6 +1,7 @@
 import csv
 import time
 import random
+import json
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
@@ -66,7 +67,8 @@ try:
         content_items_list.append(item)
 
     # collect meta data about each movie in alphabet letter
-    for content_item in content_items_list[2:3]:
+    #for content_item in content_items_list[2:3]:
+    for content_item in content_items_list:
         driver.get(content_item['url'])        
         WebDriverWait(driver, timeout).until(content_tag_item_present)
         content_tag_items = driver.find_elements(By.CLASS_NAME, content_tag_item_cn)
@@ -81,38 +83,53 @@ try:
             media.append({'url':urljoin(base_url, href),'title':title})
 
         content_item['media'] = media
-
-
-    #print(f'cc {content_items_list[2:3]}')
             
     
     # collect info about each movie in alphabet letter
-    for content_item in content_items_list[2:3]:
+    #for content_item in content_items_list[2:3]:
+    for content_item in content_items_list:
         medias = content_item['media']
 
-        for media in medias[:4]:
+        #for media in medias[:4]:
+        for media in medias:
             series = True
             media_url = media['url']
+            print(f'opening {media_url}')
             driver.get(media_url)
             WebDriverWait(driver, timeout).until(episode_details_container_present)
-            episode_details_container = 0
-            sections = 0
+            episode_details_container = None
+            sections = None
+            description = None
 
             episode_details_container = driver.find_elements(By.CSS_SELECTOR, 'main.tv-series')
             if len(episode_details_container) == 0:
                 episode_details_container = driver.find_elements(By.CSS_SELECTOR, 'main.tv-program')
                 series = False
-                
-            #print(episode_details_container)
+
             if series:
                 episode_description = episode_details_container[0].find_elements(By.CSS_SELECTOR, episode_description_cn)
                 sections = episode_details_container[0].find_elements(By.CSS_SELECTOR, 'section.tv-series-section')
             else:
                 episode_description = episode_details_container[0].find_elements(By.CSS_SELECTOR, 'div.tv-program-description')
                 sections = episode_details_container[0].find_elements(By.CSS_SELECTOR, 'section.tv-program-section')
-                
-            description = episode_description[0].text
-            print(f'{series}, sections {len(sections)}, {description}')
+            
+            if len(episode_description) > 0:
+                description = episode_description[0].text
+            section = sections[1]
+            infos = episode_details_container[0].find_elements(By.CSS_SELECTOR, 'li.tv-series-more-info-item')            
+
+            media['description'] = description
+
+            for info in infos:                
+                key = info.find_elements(By.CSS_SELECTOR, 'span.tv-series-more-info-item__title')[0].text.split(":")[0]
+                value = info.find_elements(By.CSS_SELECTOR, 'span.tv-series-more-info-item__value')[0].text
+                print(f'{key}, {value}')
+                media[key] = value
+        
+    #print(f'cc {content_items_list[2:3]}')
+    json_data = json.dumps(content_items_list)
+    with open('data.json', 'w', encoding='utf-8') as f:
+        json.dump(json_data, f, ensure_ascii=False, indent=4)
     
     
 except (TimeoutException) as py_ex:
