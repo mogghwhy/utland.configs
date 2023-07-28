@@ -26,6 +26,7 @@ def scrape(meta_data, config):
         container_locate_by_value = config['contentContainer']['locateByValue']
 
         scraped_data = []
+        output_data = None
 
         if container_locate_by == 'CSS_SELECTOR':
             container_locate_by_ec = By.CSS_SELECTOR
@@ -67,11 +68,18 @@ def scrape(meta_data, config):
                         new_item = {}
                         new_item[config['contentItem']['keyName']] = value
                         scraped_data.append(new_item)
+                if config['mutateMetadata']:
+                    page['items'] = scraped_data
             else:
                 print(f'container count is not 1')
                 exit()
         
-        return scraped_data
+        if config['mutateMetadata']:
+            output_data = pages
+        else:
+            output_data = scraped_data
+        
+        return output_data
 
 
     except (TimeoutException) as ex:
