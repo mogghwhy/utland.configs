@@ -21,7 +21,6 @@ def scrape(meta_data, config):
         timeout = 15
         driver = webdriver.Chrome(service=driver_service, options=option)
 
-        pages = meta_data['items']
         container_locate_by = config['contentContainer']['locateBy']
         container_locate_by_value = config['contentContainer']['locateByValue']
 
@@ -50,7 +49,7 @@ def scrape(meta_data, config):
         container_is_present = EC.presence_of_element_located((container_locate_by_ec, container_locate_by_value))
         item_is_present = EC.presence_of_element_located((items_locate_by_ec, items_locate_by_value))
 
-        for page in pages:
+        for page in meta_data:
             page_url = page['url']
             print(f'opening page {page_url}')
             driver.get(page_url)
@@ -75,10 +74,11 @@ def scrape(meta_data, config):
                 exit()
         
         if config['mutateMetadata']:
-            output_data = pages
+            output_data = meta_data
         else:
             output_data = scraped_data
         
+        driver.quit()
         return output_data
 
 
