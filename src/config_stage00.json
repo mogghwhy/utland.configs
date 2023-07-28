@@ -1,5 +1,6 @@
 {
 	"baseUrl": "https://tv.nrk.no",
+	"mutateMetadata":false,
 	"contentContainer": {
 		"locateBy": "CSS_SELECTOR",
 		"locateByValue": "ol.tv-cl-contentList"
