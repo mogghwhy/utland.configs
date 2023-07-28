@@ -1,0 +1,13 @@
+{
+	"baseUrl": "https://tv.nrk.no",
+	"contentContainer": {
+		"locateBy": "CSS_SELECTOR",
+		"locateByValue": "ol.tv-cl-contentList"
+	},
+	"contentItem": {
+		"locateBy": "CSS_SELECTOR",
+		"locateByValue": "a.tv-cl-letter",
+		"selectTarget": "attribute",
+		"selectValue": "href"
+	}
+}
