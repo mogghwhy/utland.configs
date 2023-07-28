@@ -7,12 +7,7 @@ def read_data(file_name):
 
 def write_data(items, file_name):
     data = {}
-    data['items'] = []
-    for item in items:
-        new_item = {}
-        new_item['url'] = item
-        data['items'].append(new_item)
-   
+    data['items'] = items
     json_data = json.dumps(data)
     with open(file_name, 'w') as json_file:
         json_file.write(json_data)

@@ -64,7 +64,9 @@ def scrape(meta_data, config):
                         attribute = config['contentItem']['selectValue']
                         value = item.get_attribute(attribute)
                         # print(f'value is {value}')
-                        scraped_data.append(value)
+                        new_item = {}
+                        new_item[config['contentItem']['keyName']] = value
+                        scraped_data.append(new_item)
             else:
                 print(f'container count is not 1')
                 exit()
