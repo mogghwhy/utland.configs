@@ -15,5 +15,5 @@ def write_data(items, file_name):
     data = {}
     data['items'] = items
     json_data = json.dumps(data)
-    with open(file_name, 'w') as json_file:
-        json_file.write(json_data)
+    with open(file_name, 'w', encoding='utf-8') as json_file:
+        json.dump(json_data, json_file, ensure_ascii=True, indent=4)
