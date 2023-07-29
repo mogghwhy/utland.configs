@@ -60,13 +60,18 @@ def scrape(meta_data, config):
                 items = container[0].find_elements(items_locate_by_ec, items_locate_by_value)
                 print(f'item count is {len(items)}')
                 for item in items:
-                    if config['contentItem']['selectTarget'] == 'attribute':
-                        attribute = config['contentItem']['selectValue']
-                        value = item.get_attribute(attribute)
-                        # print(f'value is {value}')
-                        new_item = {}
-                        new_item[config['contentItem']['keyName']] = value
-                        scraped_data.append(new_item)
+                    new_item = {}                    
+                    for selectValue in config['contentItem']['selectValues']:
+                        if selectValue['selectTarget'] == 'attribute':
+                            attribute = selectValue['selectValue']
+                            value = item.get_attribute(attribute)
+                            new_item[selectValue['keyName']] = value
+                            scraped_data.append(new_item)
+                        elif selectValue['selectTarget'] == 'text':                            
+                            value = item.text
+                            new_item[selectValue['keyName']] = value
+                            scraped_data.append(new_item)
+                    
                 if config['mutateMetadata']:
                     page['items'] = scraped_data
             else:
