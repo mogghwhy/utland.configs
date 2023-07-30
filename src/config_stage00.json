@@ -3,11 +3,13 @@
     "mutateMetadata": false,
     "contentContainers": [
         {
+            "type": "firstItem",
+            "index": 0,            
             "timeout": 3,
             "locateBy": "CSS_SELECTOR",
             "locateByValue": "ol.tv-cl-contentList",
             "contentItem": {
-                "type": "list",
+                "type": "listUniqKeys",
                 "locateBy": "CSS_SELECTOR",
                 "locateByValue": "a.tv-cl-letter",
                 "selectValues": [
