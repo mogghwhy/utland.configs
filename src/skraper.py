@@ -12,14 +12,7 @@ from urllib.parse import urljoin
 
 def scrape(meta_data, config):
     try:
-        driver_service = Service('.\chromedriver_win32\chromedriver.exe')
-        option = webdriver.ChromeOptions()
-        option.add_argument('--headless')
-        option.add_argument('--no-sandbox')
-        option.add_argument('--incognito')
-        option.add_argument('--disable-dev-sh-usage')
-        timeout = 15
-        driver = webdriver.Chrome(service=driver_service, options=option)
+        timeout, driver = setup_driver()
 
         container_locate_by = config['contentContainer']['locateBy']
         container_locate_by_value = config['contentContainer']['locateByValue']
@@ -92,3 +85,14 @@ def scrape(meta_data, config):
     finally:
         pass
         driver.quit()
+
+def setup_driver():
+    driver_service = Service('.\chromedriver_win32\chromedriver.exe')
+    option = webdriver.ChromeOptions()
+    option.add_argument('--headless')
+    option.add_argument('--no-sandbox')
+    option.add_argument('--incognito')
+    option.add_argument('--disable-dev-sh-usage')
+    timeout = 15
+    driver = webdriver.Chrome(service=driver_service, options=option)
+    return timeout,driver
