@@ -8,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-from urllib.parse import urljoin
+from chromedriver_py import binary_path
 
 def scrape(meta_data, config):
     try:
@@ -128,7 +128,7 @@ def get_item_data(content_config, item):
     return new_item
 
 def setup_driver():
-    driver_service = Service('.\chromedriver_win32\chromedriver.exe')
+    driver_service = Service(binary_path)
     option = webdriver.ChromeOptions()
     option.add_argument('--headless')
     option.add_argument('--no-sandbox')
