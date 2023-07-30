@@ -1,15 +1,29 @@
 {
-	"baseUrl": "https://tv.nrk.no",
-	"mutateMetadata":false,
-	"contentContainer": {
-		"locateBy": "CSS_SELECTOR",
-		"locateByValue": "ol.tv-cl-letter-elements"
-	},
-	"contentItem": {
-		"locateBy": "CSS_SELECTOR",
-		"locateByValue": "a.tv-cl-letter-element",
-		"selectTarget": "attribute",
-		"selectValue": "href",
-		"keyName": "url"
-	}
+    "baseUrl": "https://tv.nrk.no",
+    "mutateMetadata": false,
+    "contentContainers": [
+        {
+            "type": "firstItem",
+            "index": 0,            
+            "timeout": 3,
+            "locateBy": "CSS_SELECTOR",
+            "locateByValue": "ol.tv-cl-letter-elements",
+            "contentItem": {
+                "type": "listUniqKeys",
+                "locateBy": "CSS_SELECTOR",
+                "locateByValue": "a.tv-cl-letter-element",
+                "selectValues": [
+                    {
+                        "selectTarget": "attribute",
+                        "selectValue": "href",
+                        "keyName": "url"
+                    },
+                    {
+                        "selectTarget": "text",
+                        "keyName": "title"
+                    }
+                ]
+            }
+        }
+    ]
 }

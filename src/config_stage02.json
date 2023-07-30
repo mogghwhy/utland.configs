@@ -1,0 +1,63 @@
+{
+    "baseUrl": "https://tv.nrk.no",
+    "mutateMetadata": true,
+    "contentContainers": [
+        {
+            "type": "firstItem",
+            "index": 0,            
+            "timeout": 3,
+            "locateBy": "CSS_SELECTOR",
+            "locateByValue": "div.tv-series-hero",
+            "contentItem": {
+                "type": "firstItem",
+                "index": 0,
+                "locateBy": "CSS_SELECTOR",
+                "locateByValue": "div.tv-series-hero-description",
+                "selectValues": [
+                    {
+                        "selectTarget": "text",
+                        "keyName": "description"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "indexedItem",
+            "index": 1,
+            "timeout": 3,
+            "locateBy": "CSS_SELECTOR",
+            "locateByValue": "section.tv-series-section",
+            "contentItem": {
+                "type": "list",
+                "index": 0,
+                "locateBy": "CSS_SELECTOR",
+                "locateByValue": "li.tv-series-more-info-item",
+                "selectValues": [
+                    {
+                        "selectTarget": "text",
+                        "keyName": "moreInfo"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "indexedItem",
+            "index": 1,
+            "timeout": 3,
+            "locateBy": "CSS_SELECTOR",
+            "locateByValue": "section.tv-program-section",
+            "contentItem": {
+                "type": "list",
+                "index": 0,
+                "locateBy": "CSS_SELECTOR",
+                "locateByValue": "li.tv-series-more-info-item",
+                "selectValues": [
+                    {
+                        "selectTarget": "text",
+                        "keyName": "moreInfo"
+                    }
+                ]
+            }
+        }                 
+    ]
+}
