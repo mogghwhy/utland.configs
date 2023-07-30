@@ -7,7 +7,7 @@
             "locateBy": "CSS_SELECTOR",
             "locateByValue": "div.tv-series-hero",
             "contentItem": {
-                "type": "singleItem",
+                "type": "firstItem",
                 "index": 0,
                 "locateBy": "CSS_SELECTOR",
                 "locateByValue": "div.tv-series-hero-description",

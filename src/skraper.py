@@ -93,7 +93,7 @@ def get_container_data(driver, config):
         content_item_locate_by_value = content_config['contentItem']['locateByValue']
         content_item_locate_by_ec = get_location_constant(content_item_locate_by)
         content_item_is_present = EC.presence_of_element_located((content_item_locate_by_ec, content_item_locate_by_value))
-        if content_config['contentItem']['type'] == 'singleItem':
+        if content_config['contentItem']['type'] == 'firstItem':
             err, item = get_element(container_element, content_config, content_item_is_present, content_item_locate_by_ec, content_item_locate_by_value, 0)
             item_data = get_item_data(content_config, item)
             container_data.append(item_data)
