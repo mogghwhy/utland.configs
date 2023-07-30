@@ -1,19 +1,23 @@
 {
     "baseUrl": "https://tv.nrk.no",
     "mutateMetadata": false,
-    "contentContainer": {
-        "locateBy": "CSS_SELECTOR",
-        "locateByValue": "ol.tv-cl-contentList"
-    },
-    "contentItem": {
-        "locateBy": "CSS_SELECTOR",
-        "locateByValue": "a.tv-cl-letter",
-        "selectValues": [
-            {
-                "selectTarget": "attribute",
-                "selectValue": "href",
-                "keyName": "url"
+    "contentContainers": [
+        {
+            "timeout": 3,
+            "locateBy": "CSS_SELECTOR",
+            "locateByValue": "ol.tv-cl-contentList",
+            "contentItem": {
+                "type": "list",
+                "locateBy": "CSS_SELECTOR",
+                "locateByValue": "a.tv-cl-letter",
+                "selectValues": [
+                    {
+                        "selectTarget": "attribute",
+                        "selectValue": "href",
+                        "keyName": "url"
+                    }
+                ]
             }
-        ]
-    }
+        }
+    ]
 }
