@@ -85,7 +85,8 @@ def get_container_data(driver, config):
         container_locate_by_value = content_config['locateByValue']
         container_locate_by_ec = get_location_constant(container_locate_by)
         container_is_present = EC.presence_of_element_located((container_locate_by_ec, container_locate_by_value))
-        error, container_element = get_element(driver, content_config, container_is_present, container_locate_by_ec, container_locate_by_value, 0)
+        container_index = content_config['index']
+        error, container_element = get_element(driver, content_config, container_is_present, container_locate_by_ec, container_locate_by_value, container_index)
         if error:
             print(f'attempting to find the next container')        
             continue
