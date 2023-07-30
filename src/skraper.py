@@ -109,7 +109,7 @@ def get_container_data(driver, config):
                 item_data = get_item_data(content_config, item)
                 for value in item_data.values():
                     pair = value.split(':')
-                    container_data.append({pair[0]: pair[1]})
+                    container_data.append({pair[0]: pair[1].strip()})
                 #print(f'item_data {item_data}')
 
     return container_data    
