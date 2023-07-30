@@ -1,0 +1,23 @@
+{
+    "baseUrl": "https://tv.nrk.no",
+    "mutateMetadata": true,
+    "contentContainers": [
+        {
+            "timeout": 3,
+            "locateBy": "CSS_SELECTOR",
+            "locateByValue": "div.tv-series-hero",
+            "contentItem": {
+                "type": "singleItem",
+                "index": 0,
+                "locateBy": "CSS_SELECTOR",
+                "locateByValue": "div.tv-series-hero-description",
+                "selectValues": [
+                    {
+                        "selectTarget": "text",
+                        "keyName": "description"
+                    }
+                ]
+            }
+        }
+    ]
+}
