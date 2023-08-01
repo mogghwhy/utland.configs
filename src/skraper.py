@@ -126,8 +126,10 @@ def get_item_data(content_config, item):
             attribute = selectValue['selectValue']
             value = item.get_attribute(attribute)
             new_item[selectValue['keyName']] = value
-        elif selectValue['selectTarget'] == 'text':                            
-            value = item.text
+        elif selectValue['selectTarget'] == 'text':
+            value = ''
+            if item is not None:
+                value = item.text
             new_item[selectValue['keyName']] = value
     return new_item
 
