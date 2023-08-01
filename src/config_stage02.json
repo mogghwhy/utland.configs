@@ -28,6 +28,7 @@
             "locateBy": "CSS_SELECTOR",
             "locateByValue": "section.tv-series-section",
             "contentItem": {
+                "specialHandlingSeparator": ":",
                 "type": "list",
                 "index": 0,
                 "locateBy": "CSS_SELECTOR",
@@ -47,6 +48,7 @@
             "locateBy": "CSS_SELECTOR",
             "locateByValue": "section.tv-program-section",
             "contentItem": {
+                "specialHandlingSeparator": ":",
                 "type": "list",
                 "index": 0,
                 "locateBy": "CSS_SELECTOR",
