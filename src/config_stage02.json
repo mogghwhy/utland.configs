@@ -58,6 +58,46 @@
                     }
                 ]
             }
-        }                 
+        },        
+        {
+            "type": "firstItem",
+            "index": 0,
+            "timeout": 3,
+            "locateBy": "CSS_SELECTOR",
+            "locateByValue": "div.tv-series-hero__main-image-wrapper",
+            "contentItem": {
+                "type": "firstItem",
+                "index": 0,
+                "locateBy": "CSS_SELECTOR",
+                "locateByValue": "img.tv-series-hero-series-image__image",
+                "selectValues": [
+                    {
+                        "selectTarget": "attribute",
+                        "selectValue": "src",
+                        "keyName": "src"
+                    }
+                ]
+            }
+        },
+        {
+            "type": "firstItem",
+            "index": 0,
+            "timeout": 3,
+            "locateBy": "CSS_SELECTOR",
+            "locateByValue": "div.ludo-poster",
+            "contentItem": {
+                "type": "firstItem",
+                "index": 0,
+                "locateBy": "CSS_SELECTOR",
+                "locateByValue": "img.ludo-poster__image",
+                "selectValues": [
+                    {
+                        "selectTarget": "attribute",
+                        "selectValue": "src",
+                        "keyName": "src"
+                    }
+                ]
+            }
+        }
     ]
 }
