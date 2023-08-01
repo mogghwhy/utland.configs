@@ -10,7 +10,8 @@ from chromedriver_py import binary_path
 def scrape(meta_data, config):
     try:
         timeout, driver = setup_driver()
-        output_data = None
+        output_data = []
+        container_datas = []
         for page in meta_data:            
             page_url = page['url']
             print(f'opening page {page_url}')
@@ -22,11 +23,11 @@ def scrape(meta_data, config):
                 for data in container_data:
                     for key in list(data.keys()):                    
                         page[key] = data[key]
-        
+            container_datas += container_data
         if config['mutateMetadata']:
             output_data = meta_data
         else:
-            output_data = container_data
+            output_data = container_datas
         return output_data
 
 
@@ -93,16 +94,19 @@ def get_container_data(driver, config):
         content_item_is_present = EC.presence_of_element_located((content_item_locate_by_ec, content_item_locate_by_value))
         if content_config['contentItem']['type'] == 'firstItem':
             err, item = get_element(container_element, content_config, content_item_is_present, content_item_locate_by_ec, content_item_locate_by_value, 0)
+            item_data = None
             item_data = get_item_data(content_config, item)
             container_data.append(item_data)
         elif content_config['contentItem']['type'] == 'listUniqKeys':
             err, items = get_elements(container_element, content_config, content_item_is_present, content_item_locate_by_ec, content_item_locate_by_value)            
             for item in items:
+                item_data = None                
                 item_data = get_item_data(content_config, item)
-                container_data.append(item_data)                
+                container_data.append(item_data)
         elif content_config['contentItem']['type'] == 'list':
             err, items = get_elements(container_element, content_config, content_item_is_present, content_item_locate_by_ec, content_item_locate_by_value)            
             for item in items:
+                item_data = None
                 item_data = get_item_data(content_config, item)
                 if 'specialHandlingSeparator' in content_config['contentItem']:
                     for value in item_data.values():
