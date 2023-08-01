@@ -26,8 +26,9 @@ def scrape(meta_data, config):
                         for key in list(data.keys()):                    
                             page[key] = data[key]
                 container_datas += container_data
+                driver.delete_all_cookies()
                 page = next(iterator,"")
-                
+
             except (WebDriverException) as ex:
                 print(f'WebDriverException happened :( , trying again')
                 continue
@@ -144,7 +145,7 @@ def setup_driver():
     driver_service = Service(binary_path)
     option = webdriver.ChromeOptions()
     option.add_argument('--headless')
-    option.add_argument('--no-sandbox')
+    #option.add_argument('--no-sandbox')
     option.add_argument('--incognito')
     option.add_argument('--disable-dev-sh-usage')
     timeout = 15
