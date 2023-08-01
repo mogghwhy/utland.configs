@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import WebDriverException
 
 from chromedriver_py import binary_path
 
@@ -12,18 +13,24 @@ def scrape(meta_data, config):
         timeout, driver = setup_driver()
         output_data = []
         container_datas = []
-        for page in meta_data:            
-            page_url = page['url']
-            print(f'opening page {page_url}')
-            driver.get(page_url)
-
-            container_data = get_container_data(driver, config)
-
-            if config['mutateMetadata']:
-                for data in container_data:
-                    for key in list(data.keys()):                    
-                        page[key] = data[key]
-            container_datas += container_data
+        iterator = iter(meta_data)
+        page = next(iterator,"")
+        while page:
+            try:        
+                page_url = page['url']
+                print(f'opening page {page_url}')
+                driver.get(page_url)
+                container_data = get_container_data(driver, config)
+                if config['mutateMetadata']:
+                    for data in container_data:
+                        for key in list(data.keys()):                    
+                            page[key] = data[key]
+                container_datas += container_data
+                page = next(iterator,"")
+                
+            except (WebDriverException) as ex:
+                print(f'WebDriverException happened :( , trying again')
+                continue
         if config['mutateMetadata']:
             output_data = meta_data
         else:
