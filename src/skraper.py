@@ -104,9 +104,12 @@ def get_container_data(driver, config):
             err, items = get_elements(container_element, content_config, content_item_is_present, content_item_locate_by_ec, content_item_locate_by_value)            
             for item in items:
                 item_data = get_item_data(content_config, item)
-                for value in item_data.values():
-                    pair = value.split(':')
-                    container_data.append({pair[0]: pair[1].strip()})
+                if 'specialHandlingSeparator' in content_config['contentItem']:
+                    for value in item_data.values():
+                        pair = value.split(content_config['contentItem']['specialHandlingSeparator'])
+                        container_data.append({pair[0]: pair[1].strip()})
+                else:
+                    container_data.append(item_data)
                 #print(f'item_data {item_data}')
 
     return container_data    
