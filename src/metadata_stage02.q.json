@@ -23,6 +23,18 @@
         {
             "url": "https://tv.nrk.no/serie/quizdan",
             "title": "QuizDan"
+        },
+        {
+            "url": "https://tv.nrk.no/serie/xltv",
+            "title": "XLTV"
+        },
+        {
+            "url": "https://tv.nrk.no/serie/xs",
+            "title": "XS"
+        },
+        {
+            "url": "https://tv.nrk.no/serie/xyz",
+            "title": "XYZ"
         }
     ]
 }
