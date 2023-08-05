@@ -9,7 +9,7 @@ class StageDataUtils:
         self.config_file = config_file
         self.write_data = self._get_output_writer(output_format)
         self.read_data = self._get_input_reader(input_format)
-        self.read_config = self._get_config_reader(config_format)
+        self.read_config = self._read_from_json
 
     def _get_input_reader(self, format):
         if format == 'json':
@@ -26,14 +26,6 @@ class StageDataUtils:
             return self._write_to_csv
         else:
             raise ValueError(format)
-        
-    def _get_config_reader(self, format):
-        if format == 'json':
-            return self._read_from_json
-        elif format == 'csv':
-            return self._read_from_csv
-        else:
-            raise ValueError(format)        
 
     def _write_to_csv(self, item):
         field_names = []
