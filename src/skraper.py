@@ -88,8 +88,12 @@ def return_elements(driver, content_config, condition, locate_by_ec, locate_by_v
 
 def get_container_data(driver, config):
     container_data = []
+    name = None
     for index, content_config in enumerate(config['contentContainers']):
         print(f'attempting to find the container with index {index}')
+        if 'alternativeTo' in content_config:
+            if content_config['alternativeTo'] == name:
+                continue
         container_locate_by = content_config['locateBy']
         container_locate_by_value = content_config['locateByValue']
         container_locate_by_ec = get_location_constant(container_locate_by)
@@ -98,6 +102,8 @@ def get_container_data(driver, config):
         error, container_element = get_element(driver, content_config, container_is_present, container_locate_by_ec, container_locate_by_value, container_index)
         if error:
             print(f'attempting to find the next container')        
+            if 'name' in content_config:
+                name = content_config['name']
             continue
         content_item_locate_by = content_config['contentItem']['locateBy']
         content_item_locate_by_value = content_config['contentItem']['locateByValue']
@@ -125,8 +131,6 @@ def get_container_data(driver, config):
                         container_data.append({pair[0]: pair[1].strip()})
                 else:
                     container_data.append(item_data)
-                #print(f'item_data {item_data}')
-
     return container_data    
 
 
