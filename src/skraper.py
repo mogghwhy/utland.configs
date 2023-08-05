@@ -14,11 +14,12 @@ def scrape(meta_data, config, write_data):
         output_data = []
         container_datas = []
         iterator = iter(meta_data)
+        index = 1
         page = next(iterator,"")
         while page:
             try:        
                 page_url = page['url']
-                print(f'opening page {page_url}')
+                print(f'opening page {page_url} , item nr. {index}')
                 driver.get(page_url)
                 container_data = get_container_data(driver, config)
                 if config['mutateMetadata']:
@@ -31,7 +32,7 @@ def scrape(meta_data, config, write_data):
                     write_data(container_data)
                 driver.delete_all_cookies()
                 page = next(iterator,"")
-
+                index += 1
             except (WebDriverException) as ex:
                 print(f'WebDriverException happened :( , trying again')
                 continue
@@ -93,6 +94,7 @@ def get_container_data(driver, config):
         print(f'attempting to find the container with index {index}')
         if 'alternativeTo' in content_config:
             if content_config['alternativeTo'] == name:
+                print(f'not looking for an alternative container, continuening with the next item')
                 continue
         container_locate_by = content_config['locateBy']
         container_locate_by_value = content_config['locateByValue']
