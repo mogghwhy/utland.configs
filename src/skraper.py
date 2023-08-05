@@ -8,7 +8,7 @@ from selenium.common.exceptions import WebDriverException
 
 from chromedriver_py import binary_path
 
-def scrape(meta_data, config):
+def scrape(meta_data, config, write_data):
     try:
         timeout, driver = setup_driver()
         output_data = []
@@ -25,7 +25,10 @@ def scrape(meta_data, config):
                     for data in container_data:
                         for key in list(data.keys()):                    
                             page[key] = data[key]
-                container_datas += container_data
+                    write_data(page)
+                else:
+                    container_datas += container_data
+                    write_data(container_data)
                 driver.delete_all_cookies()
                 page = next(iterator,"")
 
