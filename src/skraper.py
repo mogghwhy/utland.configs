@@ -7,19 +7,20 @@ from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import WebDriverException
 
 from chromedriver_py import binary_path
+from itertools import islice
 
-def scrape(meta_data, config, write_data):
-    try:
+def scrape(meta_data, config, write_data, start_index=0):
+    try:        
         timeout, driver = setup_driver()
         output_data = []
         container_datas = []
-        iterator = iter(meta_data)
-        index = 1
+        iterator = iter(islice(meta_data, start_index, None))
+        index = 0
         page = next(iterator,"")
         while page:
             try:        
                 page_url = page['url']
-                print(f'opening page {page_url} , item nr. {index}')
+                print(f'opening page {page_url} , item index {index}')
                 driver.get(page_url)
                 container_data = get_container_data(driver, config)
                 if config['mutateMetadata']:
