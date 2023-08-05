@@ -3,7 +3,7 @@ import csv
 import json
 
 class StageDataUtils:
-    def __init__(self, input_file, input_format, config_file, config_format, output_file, output_format):
+    def __init__(self, input_file, input_format, config_file, output_file, output_format):
         self.output_file = output_file
         self.input_file = input_file
         self.config_file = config_file
