@@ -15,7 +15,7 @@ def scrape(meta_data, config, write_data, start_index=0):
         output_data = []
         container_datas = []
         iterator = iter(islice(meta_data, start_index, None))
-        index = 0
+        index = start_index
         page = next(iterator,"")
         while page:
             try:        
