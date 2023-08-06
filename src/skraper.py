@@ -4,29 +4,43 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import WebDriverException
 
 from chromedriver_py import binary_path
+from itertools import islice
 
-def scrape(meta_data, config):
-    try:
+def scrape(meta_data, config, write_data, start_index=0):
+    try:        
         timeout, driver = setup_driver()
-        output_data = None
-        for page in meta_data:            
-            page_url = page['url']
-            print(f'opening page {page_url}')
-            driver.get(page_url)
-
-            container_data = get_container_data(driver, config)
-
-            if config['mutateMetadata']:
-                for data in container_data:
-                    for key in list(data.keys()):                    
-                        page[key] = data[key]
-        
+        output_data = []
+        container_datas = []
+        iterator = iter(islice(meta_data, start_index, None))
+        index = start_index
+        page = next(iterator,"")
+        while page:
+            try:        
+                page_url = page['url']
+                print(f'opening page {page_url} , item index {index}')
+                driver.get(page_url)
+                container_data = get_container_data(driver, config)
+                if config['mutateMetadata']:
+                    for data in container_data:
+                        for key in list(data.keys()):                    
+                            page[key] = data[key]
+                    write_data(page)
+                else:
+                    container_datas += container_data
+                    write_data(container_data)
+                driver.delete_all_cookies()
+                page = next(iterator,"")
+                index += 1
+            except (WebDriverException) as ex:
+                print(f'WebDriverException happened :( , trying again')
+                continue
         if config['mutateMetadata']:
             output_data = meta_data
         else:
-            output_data = container_data
+            output_data = container_datas
         return output_data
 
 
@@ -76,8 +90,13 @@ def return_elements(driver, content_config, condition, locate_by_ec, locate_by_v
 
 def get_container_data(driver, config):
     container_data = []
+    name = None
     for index, content_config in enumerate(config['contentContainers']):
         print(f'attempting to find the container with index {index}')
+        if 'alternativeTo' in content_config:
+            if content_config['alternativeTo'] == name:
+                print(f'not looking for an alternative container, continuening with the next item')
+                continue
         container_locate_by = content_config['locateBy']
         container_locate_by_value = content_config['locateByValue']
         container_locate_by_ec = get_location_constant(container_locate_by)
@@ -86,6 +105,8 @@ def get_container_data(driver, config):
         error, container_element = get_element(driver, content_config, container_is_present, container_locate_by_ec, container_locate_by_value, container_index)
         if error:
             print(f'attempting to find the next container')        
+            if 'name' in content_config:
+                name = content_config['name']
             continue
         content_item_locate_by = content_config['contentItem']['locateBy']
         content_item_locate_by_value = content_config['contentItem']['locateByValue']
@@ -93,22 +114,26 @@ def get_container_data(driver, config):
         content_item_is_present = EC.presence_of_element_located((content_item_locate_by_ec, content_item_locate_by_value))
         if content_config['contentItem']['type'] == 'firstItem':
             err, item = get_element(container_element, content_config, content_item_is_present, content_item_locate_by_ec, content_item_locate_by_value, 0)
+            item_data = None
             item_data = get_item_data(content_config, item)
             container_data.append(item_data)
         elif content_config['contentItem']['type'] == 'listUniqKeys':
             err, items = get_elements(container_element, content_config, content_item_is_present, content_item_locate_by_ec, content_item_locate_by_value)            
             for item in items:
+                item_data = None                
                 item_data = get_item_data(content_config, item)
-                container_data.append(item_data)                
+                container_data.append(item_data)
         elif content_config['contentItem']['type'] == 'list':
             err, items = get_elements(container_element, content_config, content_item_is_present, content_item_locate_by_ec, content_item_locate_by_value)            
             for item in items:
+                item_data = None
                 item_data = get_item_data(content_config, item)
-                for value in item_data.values():
-                    pair = value.split(':')
-                    container_data.append({pair[0]: pair[1].strip()})
-                #print(f'item_data {item_data}')
-
+                if 'specialHandlingSeparator' in content_config['contentItem']:
+                    for value in item_data.values():
+                        pair = value.split(content_config['contentItem']['specialHandlingSeparator'])
+                        container_data.append({pair[0]: pair[1].strip()})
+                else:
+                    container_data.append(item_data)
     return container_data    
 
 
@@ -119,8 +144,10 @@ def get_item_data(content_config, item):
             attribute = selectValue['selectValue']
             value = item.get_attribute(attribute)
             new_item[selectValue['keyName']] = value
-        elif selectValue['selectTarget'] == 'text':                            
-            value = item.text
+        elif selectValue['selectTarget'] == 'text':
+            value = ''
+            if item is not None:
+                value = item.text
             new_item[selectValue['keyName']] = value
     return new_item
 
