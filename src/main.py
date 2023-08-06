@@ -7,20 +7,24 @@ from stagedata import write_data
 from stagedata import StageDataUtils
 
 start_index = None
-if len(argv) == 4:
+if len(argv) == 6:
     meta_data = argv[1]
-    config_data = argv[2]
-    output_data = argv[3]
-elif len(argv) == 5:
+    meta_data_format = argv[2]
+    config_data = argv[3]
+    output_data = argv[4]
+    output_format = argv[5]
+elif len(argv) == 7:
     meta_data = argv[1]
-    config_data = argv[2]
-    output_data = argv[3]
-    start_index = int(argv[4])
+    meta_data_format = argv[2]
+    config_data = argv[3]
+    output_data = argv[4]
+    output_format = argv[5]
+    start_index = int(argv[6])
 else:
-    print("This script needs exactly three arguments, aborting")
+    print("This script needs exactly 5 or 6 arguments, aborting")
     exit()
 
-stage_data_utils = StageDataUtils(meta_data, 'json', config_data, output_data, 'csv')
+stage_data_utils = StageDataUtils(meta_data, meta_data_format, config_data, output_data, output_format)
 meta_data_json = stage_data_utils.read_meta_data()
 config_json = stage_data_utils.read_config(config_data)
 
