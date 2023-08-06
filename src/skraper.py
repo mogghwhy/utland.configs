@@ -155,7 +155,7 @@ def setup_driver():
     driver_service = Service(binary_path)
     option = webdriver.ChromeOptions()
     option.add_argument('--headless')
-    #option.add_argument('--no-sandbox')
+    option.add_argument('--no-sandbox')
     option.add_argument('--incognito')
     option.add_argument('--disable-dev-sh-usage')
     timeout = 15
