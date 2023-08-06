@@ -55,21 +55,33 @@ class StageDataUtils:
                     writer.writerow(item)
 
     def _write_to_json(self, items):
-        data = {}
-        data['items'] = items
-        json_data = json.dumps(data, ensure_ascii=True, indent=4)
-        with open(self.output_file, 'w', encoding='utf-8') as json_file:
-            json_file.write(json_data)
+        if os.path.exists(self.output_file):            
+            with open(self.output_file, 'r+', encoding='utf-8') as json_file:
+                json_data = json.load(json_file)
+                json_data['items'] += (items)
+                json_file.seek(0)
+                json.dump(json_data, json_file, ensure_ascii=True, indent = 4)
+        else:
+            with open(self.output_file, 'w+', encoding='utf-8') as json_file:
+                empty = {}
+                empty['items'] = []
+                empty['items'] += items
+                json.dump(empty, json_file, ensure_ascii=True, indent = 4)                
 
     def _read_from_csv(self, file):
-        pass
+        with open(self.input_file,'r', newline='\n', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            items = {}
+            items['items'] = []
+            items['items'] += list(reader)
+            return items
 
     def _read_from_json(self, file):
         with open(file, 'r', encoding='utf-8') as json_file:
             json_data = json.load(json_file)            
         return json_data
     
-    def read_meta_data(self):
+    def read_meta_data(self):        
         return self.read_data(self.input_file)['items']
 
 
