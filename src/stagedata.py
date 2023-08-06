@@ -54,11 +54,13 @@ class StageDataUtils:
                 else:
                     writer.writerow(item)
 
-    def _write_to_json(self, items):
+    def _write_to_json(self, items):        
+        if isinstance(items, dict):
+            items = [items]
         if os.path.exists(self.output_file):            
             with open(self.output_file, 'r+', encoding='utf-8') as json_file:
                 json_data = json.load(json_file)
-                json_data['items'] += (items)
+                json_data['items'] += items
                 json_file.seek(0)
                 json.dump(json_data, json_file, ensure_ascii=True, indent = 4)
         else:
