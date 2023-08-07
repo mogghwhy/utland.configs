@@ -62,13 +62,13 @@ class StageDataUtils:
                 json_data = json.load(json_file)
                 json_data['items'] += items
                 json_file.seek(0)
-                json.dump(json_data, json_file, ensure_ascii=True, indent = 4)
+                json.dump(json_data, json_file, ensure_ascii=False, indent = 4)
         else:
             with open(self.output_file, 'w+', encoding='utf-8') as json_file:
                 empty = {}
                 empty['items'] = []
                 empty['items'] += items
-                json.dump(empty, json_file, ensure_ascii=True, indent = 4)                
+                json.dump(empty, json_file, ensure_ascii=False, indent = 4)                
 
     def _read_from_csv(self, file):
         with open(self.input_file,'r', newline='\n', encoding='utf-8') as csvfile:
