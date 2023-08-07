@@ -16,6 +16,8 @@ def scrape(meta_data, config, write_data, start_index=0):
         container_datas = []
         iterator = iter(islice(meta_data, start_index, None))
         index = start_index
+        if 'defaultsObject' in config:
+            defaultsObject = config['defaultsObject']
         page = next(iterator,"")
         while page:
             try:        
@@ -27,10 +29,10 @@ def scrape(meta_data, config, write_data, start_index=0):
                     for data in container_data:
                         for key in list(data.keys()):                    
                             page[key] = data[key]
-                    write_data(page)
+                    write_data(defaultsObject | page)
                 else:
                     container_datas += container_data
-                    write_data(container_data)
+                    write_data(defaultsObject | container_data)
                 driver.delete_all_cookies()
                 page = next(iterator,"")
                 index += 1
