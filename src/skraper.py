@@ -16,6 +16,8 @@ def scrape(meta_data, config, write_data, start_index=0):
         container_datas = []
         iterator = iter(islice(meta_data, start_index, None))
         index = start_index
+        if 'defaultsObject' in config:
+            defaultsObject = config['defaultsObject']
         page = next(iterator,"")
         while page:
             try:        
@@ -27,10 +29,17 @@ def scrape(meta_data, config, write_data, start_index=0):
                     for data in container_data:
                         for key in list(data.keys()):                    
                             page[key] = data[key]
-                    write_data(page)
+                    if 'defaultsObject' in config:
+                        write_data(defaultsObject | page)
+                    else:
+                        write_data(page)
                 else:
                     container_datas += container_data
-                    write_data(container_data)
+                    container_data_dict = combine_dictionaries(container_data)                    
+                    if 'defaultsObject' in config:
+                        write_data(defaultsObject | container_data_dict)
+                    else:
+                        write_data(container_data_dict)
                 driver.delete_all_cookies()
                 page = next(iterator,"")
                 index += 1
@@ -51,6 +60,11 @@ def scrape(meta_data, config, write_data, start_index=0):
         pass
         driver.quit()
 
+def combine_dictionaries(items):
+    result = {}
+    for dictionary in items:
+        result.update(dictionary)
+    return result
 
 def get_location_constant(container_locate_by):
     if container_locate_by == 'CSS_SELECTOR':
@@ -104,10 +118,10 @@ def get_container_data(driver, config):
         container_index = content_config['index']
         error, container_element = get_element(driver, content_config, container_is_present, container_locate_by_ec, container_locate_by_value, container_index)
         if error:
-            print(f'attempting to find the next container')        
-            if 'name' in content_config:
-                name = content_config['name']
+            print(f'attempting to find the next container')
             continue
+        if 'name' in content_config:
+            name = content_config['name']
         content_item_locate_by = content_config['contentItem']['locateBy']
         content_item_locate_by_value = content_config['contentItem']['locateByValue']
         content_item_locate_by_ec = get_location_constant(content_item_locate_by)

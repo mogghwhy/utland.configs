@@ -1,6 +1,20 @@
 {
     "baseUrl": "https://tv.nrk.no",
     "mutateMetadata": true,
+    "defaultsObject" : {
+        "title": "",
+        "url": "",
+        "description": "",
+        "Tilgjengelig fra": "",
+        "Tilgjengelig til": "",
+        "Tilgjengelig i": "",
+        "Aldersgrense": "",
+        "Produksjonsår": "",
+        "Lengde": "",
+        "Første gang sendt": "",
+        "Siste gang sendt": "",
+        "src": ""
+    },
     "contentContainers": [
         {
             "type": "firstItem",

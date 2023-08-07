@@ -62,13 +62,13 @@ class StageDataUtils:
                 json_data = json.load(json_file)
                 json_data['items'] += items
                 json_file.seek(0)
-                json.dump(json_data, json_file, ensure_ascii=True, indent = 4)
+                json.dump(json_data, json_file, ensure_ascii=False, indent = 4)
         else:
             with open(self.output_file, 'w+', encoding='utf-8') as json_file:
                 empty = {}
                 empty['items'] = []
                 empty['items'] += items
-                json.dump(empty, json_file, ensure_ascii=True, indent = 4)                
+                json.dump(empty, json_file, ensure_ascii=False, indent = 4)                
 
     def _read_from_csv(self, file):
         with open(self.input_file,'r', newline='\n', encoding='utf-8') as csvfile:
@@ -85,24 +85,3 @@ class StageDataUtils:
     
     def read_meta_data(self):        
         return self.read_data(self.input_file)['items']
-
-
-
-
-def read_config_data(file_name):
-    return read_data(file_name)
-
-def read_meta_data(file_name):    
-    return read_data(file_name)['items']
-
-def read_data(file_name):
-    with open(file_name,'r', encoding='utf-8') as json_file:
-        json_data = json.load(json_file)
-    return json_data
-
-def write_data(items, file_name):
-    data = {}
-    data['items'] = items
-    json_data = json.dumps(data, ensure_ascii=True, indent=4)
-    with open(file_name, 'w', encoding='utf-8') as json_file:
-        json_file.write(json_data)
