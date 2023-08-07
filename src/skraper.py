@@ -29,10 +29,17 @@ def scrape(meta_data, config, write_data, start_index=0):
                     for data in container_data:
                         for key in list(data.keys()):                    
                             page[key] = data[key]
-                    write_data(defaultsObject | page)
+                    if 'defaultsObject' in config:
+                        write_data(defaultsObject | page)
+                    else:
+                        write_data(page)
                 else:
                     container_datas += container_data
-                    write_data(defaultsObject | container_data)
+                    container_data_dict = combine_dictionaries(container_data)                    
+                    if 'defaultsObject' in config:
+                        write_data(defaultsObject | container_data_dict)
+                    else:
+                        write_data(container_data_dict)
                 driver.delete_all_cookies()
                 page = next(iterator,"")
                 index += 1
@@ -53,6 +60,11 @@ def scrape(meta_data, config, write_data, start_index=0):
         pass
         driver.quit()
 
+def combine_dictionaries(items):
+    result = {}
+    for dictionary in items:
+        result.update(dictionary)
+    return result
 
 def get_location_constant(container_locate_by):
     if container_locate_by == 'CSS_SELECTOR':
