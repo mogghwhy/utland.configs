@@ -1,6 +1,7 @@
 {
     "baseUrl": "https://tv.nrk.no",
     "mutateMetadata": false,
+    "combineDictionaries": false,
     "contentContainers": [
         {
             "type": "firstItem",
