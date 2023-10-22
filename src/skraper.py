@@ -10,6 +10,7 @@ from chromedriver_py import binary_path
 from itertools import islice
 
 def scrape(meta_data, config, write_data, start_index=0):
+    driver = None
     try:        
         timeout, driver = setup_driver()
         output_data = []
@@ -34,8 +35,11 @@ def scrape(meta_data, config, write_data, start_index=0):
                     else:
                         write_data(page)
                 else:
-                    container_datas += container_data
-                    container_data_dict = combine_dictionaries(container_data)                    
+                    container_datas += container_data                    
+                    if 'combineDictionaries' in config and config['combineDictionaries']:
+                        container_data_dict = combine_dictionaries(container_datas)       
+                    else:
+                        container_data_dict = container_datas                    
                     if 'defaultsObject' in config:
                         write_data(defaultsObject | container_data_dict)
                     else:
