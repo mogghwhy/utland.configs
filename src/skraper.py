@@ -35,7 +35,7 @@ def scrape(meta_data, config, write_data, start_index=0):
                     else:
                         write_data(page)
                 else:
-                    container_datas += container_data                    
+                    container_datas = container_data                    
                     if 'combineDictionaries' in config and config['combineDictionaries']:
                         container_data_dict = combine_dictionaries(container_datas)       
                     else:
