@@ -16,21 +16,6 @@
             "Originaltittel": "\"Q\" - Bendik Hofseth 2"
         },
         {
-            "title": "QAnon",
-            "url": "https://tv.nrk.no/serie/qanon",
-            "description": "Kryptiske meldinger fra nettprofilen Q gir næring til ville konspirasjonsteorier. De blomstrer ennå i noen miljøer, og gjerne blant Trump-tilhengere.",
-            "Tilgjengelig fra": "13. september 2021 kl. 06",
-            "Tilgjengelig til": "31. august 2023 kl. 23",
-            "Tilgjengelig i": "Norge",
-            "Aldersgrense": "12+",
-            "Produksjonsår": "2021",
-            "Lengde": "41 minutter",
-            "Første gang sendt": "NRK2 · Torsdag 23. september 2021 kl. 23",
-            "Siste gang sendt": "NRK2 · Mandag 21. august 2023 kl. 01",
-            "src": "https://gfx.nrk.no/Slpzo8WD6mdTF5JeDvHiMgJXQgiv72XzX_lvdRL0xvSQ",
-            "Originaltittel": "QAnon"
-        },
-        {
             "title": "Qigong - kinesisk sirkus og naturmedisin",
             "url": "https://tv.nrk.no/program/FNYH70003386",
             "description": "",
@@ -87,7 +72,8 @@
             "Lengde": "24 minutter",
             "Første gang sendt": "NRK1 · Onsdag 14. oktober 2009 kl. 23",
             "Siste gang sendt": "NRK1 · Lørdag 17. oktober 2009 kl. 12",
-            "src": "https://gfx.nrk.no/X5G6T11QC99pbRo7c8-7EgXCaP9rguslfR-MbOs_CvEA"
+            "src": "https://gfx.nrk.no/X5G6T11QC99pbRo7c8-7EgXCaP9rguslfR-MbOs_CvEA",
+            "Originaltittel": ""
         },
         {
             "title": "QuizDan",
@@ -101,7 +87,8 @@
             "Lengde": "59 minutter",
             "Første gang sendt": "NRK1 · Søndag 13. november 2016 kl. 21",
             "Siste gang sendt": "NRK2 · Mandag 14. november 2016 kl. 13",
-            "src": "https://gfx.nrk.no/rYopY2QKEaM87NScU5dJsQWJVcSIBXmECvPlVRucmj7Q"
+            "src": "https://gfx.nrk.no/rYopY2QKEaM87NScU5dJsQWJVcSIBXmECvPlVRucmj7Q",
+            "Originaltittel": ""
         },
         {
             "title": "XLTV",
@@ -134,21 +121,6 @@
             "Originaltittel": "XS Sport Kavalkade"
         },
         {
-            "title": "XS Musikk",
-            "url": "https://tv.nrk.no/serie/xs-musikk",
-            "description": "Et rent musikkvideoprogram uten heseblesende programledere.",
-            "Tilgjengelig fra": "6. oktober 2023 kl. 06",
-            "Tilgjengelig til": "Alltid tilgjengelig",
-            "Tilgjengelig i": "Verden",
-            "Aldersgrense": "9+",
-            "Produksjonsår": "1998",
-            "Lengde": "19 minutter",
-            "Første gang sendt": "NRK2 · Torsdag 21. mai 1998 kl. 00",
-            "Siste gang sendt": "NRK2 · Torsdag 21. mai 1998 kl. 00",
-            "src": "https://gfx.nrk.no/0HruERXs0smkUkGGZBv53gd6nVifrnMOGbJDWMxiLybA",
-            "Originaltittel": "XS musikk"
-        },
-        {
             "title": "XYZ",
             "url": "https://tv.nrk.no/serie/xyz",
             "description": "Blindt møte med Petter Nome.",
@@ -160,7 +132,8 @@
             "Lengde": "30 minutter",
             "Første gang sendt": "NRK1 · Fredag 28. november 1997 kl. 23",
             "Siste gang sendt": "NRK1 · Fredag 28. november 1997 kl. 23",
-            "src": "https://gfx.nrk.no/33VnbBE6Ugc36Og4Inb7-AevC-B2sNW3A1BLPyYRqUAg"
+            "src": "https://gfx.nrk.no/33VnbBE6Ugc36Og4Inb7-AevC-B2sNW3A1BLPyYRqUAg",
+            "Originaltittel": ""
         }
     ]
 }
