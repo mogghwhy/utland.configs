@@ -1,5 +1,5 @@
 # utland
-## Utland is a multi-stage data scraper that extracts information about shows, movies, and programs available on the NRK website (https://tv.nrk.no/programmer/utland).
+## Utland is a multi-stage data scraper that extracts information about shows, movies, and programs available on the [NRK website](https://tv.nrk.no/alle-programmer/utland) .
 
 ## initial setup
 git clone https://github.com/mogghwhy/utland  
